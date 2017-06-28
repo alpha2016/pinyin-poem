@@ -31,6 +31,6 @@ class ReadController extends Controller
     public function demo(Request $request)
     {
         // 参数 $number cht/chs  两个可选
-        return numToZh(10250.012, 'cht');
+        return numToZh(10250.01, 'cht');
     }
 }

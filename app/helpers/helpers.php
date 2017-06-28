@@ -11,9 +11,10 @@ if(!function_exists('numToZh')) {
         $count = count($number);
         $integer = $count >= 1 ? $number[0] : '';
         $decimal = $count >= 2 ? str_split($number[1], 1) : '';   // 直接处理成数组
-
+        $decimalZh = $decimal == '' ? '' : '点' . decimalFourFormat($decimal, $type);
         $integerZh = doTrans($integer, $type, 1);
-        $filter = $integerZh . '点' . decimalFourFormat($decimal, $type);
+
+        $filter = $integerZh . $decimalZh;
 
         if (mb_substr($filter, 0, 1) == '零') {
             if (mb_substr($filter, 0, 2) == '零点') {
@@ -21,7 +22,7 @@ if(!function_exists('numToZh')) {
             }
             return mb_substr($filter, 1);
         } else {
-            return str_replace('零点', '点', $integerZh . '点' . decimalFourFormat($decimal, $type));
+            return str_replace('零点', '点', $integerZh . $decimalZh);
         }
     }
 }
