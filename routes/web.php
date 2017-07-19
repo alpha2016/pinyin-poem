@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/read', 'ReadController@index');
 Route::get('/demo', 'ReadController@demo');
+Route::get('/rand', 'TestController@rand');
