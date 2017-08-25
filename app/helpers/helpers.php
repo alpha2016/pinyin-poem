@@ -94,3 +94,22 @@ if (!function_exists('getDataByType')) {
         return $type == 'chs' ? $zhs : $zht;
     }
 }
+
+// 字符串反转，继续保持同位置大小写一致
+// url: https://segmentfault.com/q/1010000010627229/a-1020000010628898 
+if (!function_exists('reverse')) {
+    function reverse($str) {
+        $words = explode(' ', $str);
+        $new_words = '';
+        foreach ($words as &$word) {
+            $rev_word = strrev($word);
+            $new_word = '';
+            for ($i =0; $i < strlen($word); $i++) {
+                $new_word .= preg_match('/^[A-Z]+$/', $word[$i]) 
+                    ? strtoupper($rev_word[$i]) : strtolower($rev_word[$i]);
+            }
+            $new_words .= $new_word. ' ';
+        }
+        return substr($new_words, 0, -1); 
+    }
+}
