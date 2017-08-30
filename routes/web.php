@@ -23,3 +23,4 @@ Route::get('/read', 'ReadController@index');
 Route::get('/demo', 'ReadController@demo');
 Route::get('/rand', 'TestController@rand');
 Route::get('/reverse', 'TestController@reverse');
+Route::get('/word-check', 'TestController@wordCheck');

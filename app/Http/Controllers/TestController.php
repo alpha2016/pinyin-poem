@@ -38,4 +38,14 @@ class TestController extends Controller
         var_dump(reverse('Hellp PHPtest'));
         var_dump(reverse('Boston Celtics!A'));
     }
+
+    /**
+     * 敏感词过滤
+     */
+    public function wordCheck(Request $request)
+    {
+        $content = '他是个傻@B bitchSADF啊，傻xx逼! é-f-é-u-é-c-é-k-é?';
+
+        return sensitiveWordFilter($content);
+    }
 }
