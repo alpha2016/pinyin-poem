@@ -118,6 +118,10 @@ if (!function_exists('sensitiveWordFilter')) {
     function sensitiveWordFilter($str)
     {
         // 最高级别过滤
+        // if ($str) {
+        //     return '根据最高个人想法，禁止发言';
+        // }
+
         // $words = getSensitiveWords();
         $words = ['fuck', '傻逼', 'bitch啊'];   // 建议从文件或者缓存中读取敏感词列表，英文约定小写
         $flag = false;
