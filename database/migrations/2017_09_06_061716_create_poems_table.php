@@ -21,6 +21,7 @@ class CreatePoemsTable extends Migration
             $table->string('content', 1000)->comment('内容');
             $table->string('description', 1000)->comment('简述');
             $table->integer('admin_id')->comment('最后操作人');
+            $table->string('picture', 150)->nullable()->comment('诗歌配图');
 
             $table->timestamps();
             $table->softDeletes();

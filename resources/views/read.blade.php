@@ -18,17 +18,17 @@
 
                 <div class="panel-body">
                 <?php $i = 0; ?>
-                    @foreach($results as $key => $result)
-                        {!! $i == 0 ? "<ruby>" : "" !!}
-                        <?php $i++; ?>
-                        @if ($key != '，')
-                            {{ $key }} <rt> {{ $result }} </rt>
-                        @else
-                            </rudy><br />
-                            <?php $i = 0; ?>
-                        @endif 
+                @foreach($results as $key => $result)
+                    {!! $i == 0 ? "<ruby>" : "" !!}
+                    <?php $i++; ?>
+                    @if ($key != '，')
+                        {{ $key }} <rt> {{ $result }} </rt>
+                    @else
+                        </rudy><br />
+                        <?php $i = 0; ?>
+                    @endif 
 
-                    @endforeach
+                @endforeach
                 </div>
             </div>
         </div>

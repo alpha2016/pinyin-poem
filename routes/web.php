@@ -25,12 +25,9 @@ Route::get('/rand', 'TestController@rand');                // random_int 函数�
 Route::get('/reverse', 'TestController@reverse');          // 反转字符串，同位置的字母保持大小写一致
 Route::get('/word-check', 'TestController@wordCheck');     // 敏感词过滤
 
-// todo 添加《诗经》，分章节展示，单节发送到邮箱
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
 
 // admin 相关的登录
 Route::group(['prefix' => 'admin'], function () {
@@ -38,3 +35,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/login', 'Admin\Auth\LoginController@login');
     Route::post('/logout', 'Admin\Auth\LoginController@logout');
 });
+
+// todo 添加《诗经》，分章节展示，单节发送到邮箱
+Route::get('/poem/{id}', 'PoemController@show');
