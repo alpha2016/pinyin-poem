@@ -14,4 +14,15 @@ class IndexController extends Controller
     {
         return view('admin.index');
     }
+
+    /**
+     * 测试
+     */
+    public function test(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required|max:50',
+            'content' => 'required|max:120'
+        ]);
+    }
 }

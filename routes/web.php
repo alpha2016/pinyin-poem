@@ -38,3 +38,5 @@ Route::group(['prefix' => 'admin'], function () {
 
 // todo 添加《诗经》，分章节展示，单节发送到邮箱
 Route::get('/poem/{id}', 'PoemController@show');
+
+Route::post('test', 'Admin\IndexController@test');
