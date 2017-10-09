@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Poem;
 use Pinyin;
+use App\Services\AipSpeech;
 
 class PoemController extends Controller
 {
@@ -60,5 +61,15 @@ class PoemController extends Controller
         }
 
         return view('poem', compact('poem', 'results'));
+    }
+
+    /**
+     * 读诗
+     */
+    public function speech(Request $request, $id)
+    {
+        $ai = new AipSpeech();
+        $path = $ai->getVoice('这个是测试的', 'haha');
+        return $path;
     }
 }
