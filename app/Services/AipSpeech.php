@@ -27,17 +27,24 @@ class AipSpeech
 
     public $access_token;
     
-	function __construct(){
+    public function __construct(){
         global $n,$t;
     }
 
-    function getVoice($txt, $title)
+    /**
+     * 获取语音的方法
+     *
+     * @param string $txt
+     * @param string $title
+     * @return void
+     */
+    public function getVoice($txt, $title)
     {
         $tok = $this->getToken();
         $params = array(
             'tex' => $txt,
             'tok' => $tok,
-            'spd' => 5,     // 语速，取值 0-9，默认为 5
+            'spd' => 2,     // 语速，取值 0-9，默认为 5
             'pit' => 5,     // 音调，取值 0-9，默认为 5
             'vol' => 9,     // 音量，取值 0-9，默认为 5
             'per' => 0,     // 取值 0-1 ；0 为女声，1 为男声，默认为女声
@@ -47,7 +54,7 @@ class AipSpeech
             'lan' => 'zh'
         );
 
-        $result = $this->file_get_content($this->urlVoice, $params);
+        $result = $this->curl($this->urlVoice, $params);
         if (!$result) return 'Oauth2服务器连接失败';
 
         // 保存到文件
@@ -60,7 +67,13 @@ class AipSpeech
         return $targetName;
     }
 
-    function _getToken()
+
+    /**
+     * 获取token
+     *
+     * @return void
+     */
+    public function _getToken()
     {
         //百度直接返回AccessToken
         $params = array(
@@ -69,12 +82,18 @@ class AipSpeech
             'grant_type' => 'client_credentials'
         );
 
-        $c = $this->file_get_content($this->openUrl, $params);
-        if (!$c) return 'Oauth2服务器连接失败';
-        return $c;
+        $result = $this->curl($this->openUrl, $params);
+        if (!$result) return 'Oauth2服务器连接失败';
+        return $result;
     }
 
-    function getToken()
+
+    /**
+     * 调用方法
+     *
+     * @return void
+     */
+    public function getToken()
     {
         $filename = TEMP . ($this->tokenName);
         $file = fopen($filename, 'a+') or die("Unable to open file!");
@@ -101,11 +120,18 @@ class AipSpeech
         return $this->access_token;
     }
   
+
+    /**
+     * 日志
+     *
+     * @param array $data
+     * @return void
+     */
     function _log($data)
     {	
         if ($this->isLog)
         {
-            $string = var_export($data, TRUE);//不加true和VAR_DUMP一样
+            $string = var_export($data, TRUE);             // 不加true和VAR_DUMP一样
             $file = fopen(TEMP . $this->logName, 'a+');
             fwrite($file, $string . "\r\n");
             fclose($file);
@@ -113,7 +139,14 @@ class AipSpeech
         }
     }
 
-    private function file_get_content($url, $par)
+    /**
+     * 请求方法
+     *
+     * @param string $url
+     * @param array $par
+     * @return void
+     */
+    private function curl($url, $par)
     {
         $ch = curl_init();
         $timeout = 30;
