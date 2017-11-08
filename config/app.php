@@ -174,6 +174,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Overtrue\LaravelPinyin\ServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+        Laravel\Dusk\DuskServiceProvider::class,
     ],
 
     /*
