@@ -141,8 +141,8 @@ if (!function_exists('sensitiveWordFilter')) {
         foreach ($words as $word)
         {
             // 判断是否包含敏感词,可以减少这里的判断来降低过滤级别，
-            if (strpos($str, $word) || strpos($contentFilter, $word) || strpos($chineseStr, $word) 
-            || strpos($englishStr, $word)) {
+            if (strpos($str, $word) !== false || strpos($contentFilter, $word) !== false || strpos($chineseStr, $word) !== false 
+            || strpos($englishStr, $word) !== false) {
                 return '敏感词:' . $word;
             }
         }
