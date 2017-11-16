@@ -32,6 +32,16 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        $message = "错误信息：" . $exception->getMessage() . PHP_EOL .
+            "错误文件：" . $exception->getFile() . PHP_EOL .
+            "行数：" . $exception->getLine() . PHP_EOL .
+            "错误代码：" . $exception->getCode() . PHP_EOL .
+            "错误：" . $exception->getTraceAsString();
+        \Mail::raw($message, function ($message) {
+            $to = '1143887497@qq.com';
+            $message ->to($to)->subject('异常提醒邮件');
+        });
+
         parent::report($exception);
     }
 

@@ -41,3 +41,6 @@ Route::get('/poem/{id}', 'PoemController@show');
 Route::get('/poem/{id}/speech', 'PoemController@speech');
 
 Route::post('test', 'Admin\IndexController@test');
+Route::get('bug', function () {
+    throw new Exception('Division by zero.');
+});
