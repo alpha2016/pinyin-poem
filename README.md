@@ -4,7 +4,19 @@
 可以直接 `git clone https://github.com/Alpha2016/pinyin-poem.git`, 然后 `composer update` 直接使用更新版本的Laravel框架，`.env` 的配置自行修改就行，
 1. 访问 `read` 路由，可以获得生命的加成.
 2. 访问 `demo` 路由，可以测试数字转换成汉字的方法.
+3. 访问 `rand` 路由，测试 `random_int` 生成的位图.
+4. 访问 `reverse` 路由，是一个转换字符串的方法，保持原来位置的字符大小写一致.
+5. 访问 `word-check` 路由，是一个测试敏感词的方法，具体实现在 `helper.php` 中.
+
+**others**
+domain/poem/{id}   访问具体的诗歌页面
 
 -- 2017.9.6
 多表认证体系，执行 `php artisan migrate --seed` 生成  `users` 和 `admins` 表，并填充 `admins` 表。
 访问路由 `domain/admin/login` 打开后台登录页面，账户密码为 `admin@pwrd.com` ， `password` 进行登录。
+
+-- 期间
+只写了一些简单的方法
+
+-- 2018.1.17
+填充了 `users`, `poems` 表数据，`git clone git@url` 项目之后，请在根目录，执行一下 `cnpm/npm install && cnpm/npm run production`, 然后可以执行 `php artisan migrate --seed` 生成并填充一下数据，如果想测试发送到自己的邮箱，请先注册或者修改数据表中的一条数据，将 `email` 改成自己的邮箱地址，登录之后，点击具体页面的邮寄本页按钮，将发送到您的邮箱中。具体待完善。
