@@ -37,10 +37,12 @@ class Handler extends ExceptionHandler
             "行数：" . $exception->getLine() . PHP_EOL .
             "错误代码：" . $exception->getCode() . PHP_EOL .
             "错误：" . $exception->getTraceAsString();
-        \Mail::raw($message, function ($message) {
-            $to = '1143887497@qq.com';
-            $message ->to($to)->subject('异常提醒邮件');
-        });
+
+        // mail::queue 模式不支持闭包+多个邮箱地址
+        // $to = ['1143xxx@qq.com', 'hexxx@pwrd.com'];
+        // \Mail::raw($message, function ($message) use ($to) {
+        //     $message->to($to)->subject('异常提醒邮件');
+        // });
 
         parent::report($exception);
     }
