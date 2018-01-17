@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\Models\Poem;
 use Pinyin;
 use App\Services\AipSpeech;
+use App\Mail\Poem as PoemMail;
+use Illuminate\Support\Facades\Auth;
 
 class PoemController extends Controller
 {
@@ -23,6 +25,39 @@ class PoemController extends Controller
     public function show(Request $request, $id)
     {
         $poem = Poem::find($id);
+        $contents = $this->formatContent($poem);
+
+        return view('poem', compact('poem', 'contents'));
+    }
+
+    /**
+     * 读诗
+     */
+    public function speech(Request $request, $id)
+    {
+        $ai = new AipSpeech();
+        $path = $ai->getVoice('这个是测试的', 'haha');
+        return $path;
+    }
+    
+    /**
+     * 发送指定诗的邮件
+     */
+    public function mail(Request $request, $id)
+    {
+        $poem = Poem::find($id);
+        $contents = $this->formatContent($poem);
+        $email = Auth::user()->email;
+
+        return \Mail::to($email)->send(new PoemMail($poem, $contents));
+    }
+
+
+    /**
+     * 通过 Id 获取一首组装之后的诗
+     */
+    public function formatContent($poem)
+    {
         $contentStr = $poem->content;
         $pinyinStr = str_replace('、', ' 、',
             str_replace('?', ' ?',
@@ -60,16 +95,6 @@ class PoemController extends Controller
             $results[] = $line;
         }
 
-        return view('poem', compact('poem', 'results'));
-    }
-
-    /**
-     * 读诗
-     */
-    public function speech(Request $request, $id)
-    {
-        $ai = new AipSpeech();
-        $path = $ai->getVoice('这个是测试的', 'haha');
-        return $path;
+        return $results;
     }
 }

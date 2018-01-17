@@ -36,9 +36,12 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/logout', 'Admin\Auth\LoginController@logout');
 });
 
-// todo 添加《诗经》，分章节展示，单节发送到邮箱
+// todo 添加《诗经》，分章节展示
 Route::get('/poem/{id}', 'PoemController@show');
 Route::get('/poem/{id}/speech', 'PoemController@speech');
+Route::group(['middleware' => ['auth', 'throttle:60,1']], function () { 
+    Route::get('/poem/{id}/mail', 'PoemController@mail');
+});
 
 Route::post('test', 'Admin\IndexController@test');
 Route::get('bug', function () {

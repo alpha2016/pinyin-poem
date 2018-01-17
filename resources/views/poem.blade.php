@@ -7,29 +7,28 @@
 @section('description', $poem->title . ',' . $poem->author . ',' . $poem->type->name)
 
 @push('style')
-
 <style>
 	.container { 
-		color: #2a2525;  font-family: "Microsoft YaHei","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif; 
+		font-weight: 500; color: #2a2525; font-family: "Microsoft YaHei","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif; 
 	}
-    ruby { font-weight: 500; font-size: 1.05em;}
-	rt { font-weight: 500; font-size: 0.59em; }
+    ruby {  font-size: 1.05em;}
+	rt { font-size: 0.78em; }
 </style>
 @endpush
 
 @section('content')
 	<div class="container">
-		{{--  <div><a href="/">首页</a> >> {{ $poem->type->name }}</div>  --}}
 		<div class="row">
-				<div class="span6">
-					<ul class="breadcrumb">
-						<li>
-							<a href="/">首页</a> <span class="divider">>></span>
-						</li>
-						{{ $poem->type->name }}
-					</ul>
-				</div>
+			<div class="span6">
+				<ul class="breadcrumb">
+					<li>
+						<a href="/">首页</a> <span class="divider">>></span>
+					</li>
+					{{ $poem->type->name }}
+				</ul>
 			</div>
+		</div>
+
 		<h3>{{ $poem->title }}
 			<small>{{ $poem->author }}</small>
 		</h3>
@@ -39,9 +38,9 @@
 		</p>
 
 		<hr>
-			@foreach($results as $result)
+			@foreach($contents as $content)
 				<p class='margin-bottom grey'>
-					@foreach($result as $key => $val)
+					@foreach($content as $key => $val)
 						<ruby>
 							{{ $val[0] }}
 							<rt>{{ $val[1] }}</rt>
@@ -56,6 +55,20 @@
 			</blockquote>
 			
 		<hr>
-		<h5>更新于：{{ $poem->created_at }}</h5>
+		<h5>更新于：{{ $poem->created_at }} 
+			<a id="send" data-href="{{ url('/poem/' . $poem->id . '/mail') }}" onclick="sendMail()">
+				<span class="glyphicon glyphicon-envelope"></span> 邮寄本页
+			</a>
+		</h5>
 	</div>
 @endsection
+
+@push('script')
+<script>
+	function sendMail()
+	{
+		let url = document.getElementById('send').getAttribute('data-href');
+		window.location.href = url;
+	}
+</script>
+@endpush
