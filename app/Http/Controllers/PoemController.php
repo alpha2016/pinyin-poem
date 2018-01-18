@@ -58,7 +58,7 @@ class PoemController extends Controller
      */
     public function formatContent($poem)
     {
-        $contentStr = $poem->content;
+        $contentStr = preg_replace('/\s/', '', $poem->content);
         $pinyinStr = str_replace('、', ' 、',
             str_replace('?', ' ?',
                 str_replace('!', ' !',
@@ -73,7 +73,7 @@ class PoemController extends Controller
         $pinyinArray = explode($pinyinSeparator, $pinyinStr);
 
         $contentSeparator = strpos('！', $contentStr) ? '！' : '。';
-        $contentArray = explode($contentSeparator, preg_replace('/ /', '', $contentStr));
+        $contentArray = explode($contentSeparator, $contentStr);
 
         // 整首诗分割之后组成成带拼音的
         $results = [];
