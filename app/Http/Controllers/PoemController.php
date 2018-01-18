@@ -54,7 +54,7 @@ class PoemController extends Controller
 
 
     /**
-     * 通过 Id 获取一首组装之后的诗
+     * 传来诗，然后处理返回规整好的内容
      */
     public function formatContent($poem)
     {
@@ -73,7 +73,7 @@ class PoemController extends Controller
         $pinyinArray = explode($pinyinSeparator, $pinyinStr);
 
         $contentSeparator = strpos('！', $contentStr) ? '！' : '。';
-        $contentArray = explode($contentSeparator, $contentStr);
+        $contentArray = explode($contentSeparator, preg_replace('/ /', '', $contentStr));
 
         // 整首诗分割之后组成成带拼音的
         $results = [];
@@ -83,8 +83,8 @@ class PoemController extends Controller
             $fixPinyinStr = trim($val . $pinyinSeparator);
             $formatPinyin = explode(' ', $fixPinyinStr);
 
-            $fixContentStr = $contentArray[$key] . $contentSeparator;
-            $formatText = str_split($fixContentStr, 3);
+            $fixContentStr = trim($contentArray[$key] . $contentSeparator);
+            $formatText = array_filter(str_split($fixContentStr, 3));
 
             // 由于可能有相同键值，无法直接使用 array_combine 合并
             $line = [];
