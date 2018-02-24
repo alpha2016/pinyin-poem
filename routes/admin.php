@@ -14,5 +14,10 @@
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('index', 'Admin\IndexController@index');
 
+    // 类型相关
+    Route::get('poem-types', 'Admin\Poem\PoemTypeController@index');
+
+    
+    // 诗歌相关
     Route::get('poems', 'Admin\Poem\PoemController@index');
 });
