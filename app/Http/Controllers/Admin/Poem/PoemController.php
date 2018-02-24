@@ -15,7 +15,7 @@ class PoemController extends Controller
      */
     public function index(Request $request)
     {
-        $poems = Poem::with('type')->paginate(2);
+        $poems = Poem::with('type')->paginate(20);
         return view('admin.poem.poems', compact('poems'));
     }
 }

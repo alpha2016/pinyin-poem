@@ -19,4 +19,9 @@ domain/poem/{id}   访问具体的诗歌页面
 只写了一些简单的方法
 
 -- 2018.1.17
-填充了 `users`, `poems` 表数据，`git clone git@url` 项目之后，请在根目录，执行一下 `cnpm/npm install && cnpm/npm run production`, 然后可以执行 `php artisan migrate --seed` 生成并填充一下数据，如果想测试发送到自己的邮箱，请先注册或者修改数据表中的一条数据，将 `email` 改成自己的邮箱地址，登录之后，点击具体页面的邮寄本页按钮，将发送到您的邮箱中。具体待完善。
+填充了 `users`, `poems` 表数据，`git clone git@url` 项目之后，请在根目录，执行一下 `cnpm/npm install && cnpm/npm run production`,
+ 然后可以执行 `php artisan migrate --seed` 生成并填充一下数据，如果想测试发送到自己的邮箱，
+ 请先注册或者修改数据表中的一条数据，将 `email` 改成自己的邮箱地址，登录之后，点击具体页面的邮寄本页按钮，将发送到您的邮箱中。具体待完善。
+
+-- 2018.2.24
+完全替换原来的后台模板，一点点集成新的页面ing
