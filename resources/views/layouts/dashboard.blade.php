@@ -5,8 +5,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
-    <meta name="description"
-          content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav"/>
+    <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <link rel="stylesheet" href="{{ asset('assets/css/app.v2.css') }}" type="text/css"/>
     <!--[if lt IE 9]>
@@ -23,7 +22,7 @@
                 <i class="fa fa-bars"></i>
             </a>
             <a href="#" class="navbar-brand" data-toggle="fullscreen">
-                <img src="{{ asset('assets/images/logo.png') }}" class="m-r-sm">Notebook
+                <img src="{{ asset('assets/images/logo.png') }}" class="m-r-sm">{{ config('app.name', 'Poems') }} 管理平台
             </a>
             <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".nav-user">
                 <i class="fa fa-cog"></i>
@@ -45,7 +44,6 @@
                                 <span class="text-white font-bold">@Mike Mcalidek</span>
                             </a>
                             <small class="block">Art Director</small>
-                            <a href="#" class="btn btn-xs btn-success m-t-xs">Upgrade</a>
                         </div>
                     </div>
                     <div class="row m-l-none m-r-none m-b-n-xs text-center">
@@ -69,13 +67,6 @@
                         </div>
                     </div>
                 </section>
-            </li>
-            <li>
-                <div class="m-t m-l">
-                    <a href="price.html" class="dropdown-toggle btn btn-xs btn-primary" title="Upgrade">
-                        <i class="fa fa-long-arrow-up"></i>
-                    </a>
-                </div>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right hidden-xs nav-user">
@@ -143,7 +134,7 @@
                     <span class="thumb-sm avatar pull-left">
                         <img src="{{ asset('assets/images/avatar.jpg') }}">
                     </span>
-                    John.Smith
+                    {{ Auth::guard('admin')->user()->realname }}
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu animated fadeInRight">
@@ -157,7 +148,7 @@
                     </li>
                     <li><a href="docs.html">Help</a></li>
                     <li class="divider"></li>
-                    <li><a href="modal.lockme.html" data-toggle="ajaxModal">Logout</a></li>
+                    <li><a href="{{ url('/admin/login') }}" data-toggle="ajaxModal">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -166,7 +157,7 @@
         <section class="hbox stretch"> <!-- .aside -->
             <aside class="bg-dark lter aside-md hidden-print" id="nav">
                 <section class="vbox">
-                    <header class="header bg-primary lter text-center clearfix">
+                    {{--<header class="header bg-primary lter text-center clearfix">
                         <div class="btn-group">
                             <button type="button" class="btn btn-sm btn-dark btn-icon" title="New project">
                                 <i class="fa fa-plus"></i>
@@ -182,7 +173,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </header>
+                    </header>--}}
                     <section class="w-f scrollable">
                         <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px" data-color="#333333">
                             <!-- nav -->
@@ -205,27 +196,42 @@
                                                 <i class="fa fa-angle-down text"></i>
                                                 <i class="fa fa-angle-up text-active"></i>
                                             </span>
-                                            <span>Layouts</span>
+                                            <span>诗歌</span>
                                         </a>
                                         <ul class="nav lt">
                                             <li>
-                                                <a href="layout-c.html">
-                                                    <i class="fa fa-angle-right"></i>
-                                                    <span>Color option</span>
+                                                <a href="#table">
+                                                    <i class="fa fa-angle-down text"></i>
+                                                    <i class="fa fa-angle-up text-active"></i>
+                                                    <span>诗歌</span>
                                                 </a>
+                                                <ul class="nav bg">
+                                                    <li>
+                                                        <a href="{{ url('/admin/poems') }}">
+                                                            <i class="fa fa-angle-right"></i>
+                                                            <span>诗歌</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ url('/admin/poem-types') }}">
+                                                            <i class="fa fa-angle-right"></i>
+                                                            <span>诗歌类型</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="table-datagrid.html">
+                                                            <i class="fa fa-angle-right"></i>
+                                                            <span>####</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </li>
-                                            <li>
-                                                <a href="layout-r.html">
-                                                    <i class="fa fa-angle-right"></i>
-                                                    <span>Right nav</span>
-                                                </a>
-                                            </li>
-                                            <li>
+                                            {{--<li>
                                                 <a href="layout-h.html">
                                                     <i class="fa fa-angle-right"></i>
                                                     <span>H-Layout</span>
                                                 </a>
-                                            </li>
+                                            </li>--}}
                                         </ul>
                                     </li>
                                     <li>
