@@ -24,6 +24,8 @@ class PoemTypeController extends Controller
      */
     public function delete(Request $request, $id)
     {
-        
+        PoemType::destroy($id);
+
+        return 'success';
     }
 }

@@ -17,6 +17,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     // 类型相关
     Route::get('poem-types', 'Admin\Poem\PoemTypeController@index');
 
+    Route::delete('poem-types/{id}', 'Admin\Poem\PoemTypeController@delete');
+
     
     // 诗歌相关
     Route::get('poems', 'Admin\Poem\PoemController@index');

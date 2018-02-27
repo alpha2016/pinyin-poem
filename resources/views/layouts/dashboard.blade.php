@@ -13,6 +13,7 @@
     <script src="{{ asset('assets/js/ie/respond.min.js') }}" cache="false"></script>
     <script src="{{ asset('assets/js/ie/excanvas.js') }}" cache="false"></script>
     <![endif]-->
+    @stack('style')
 </head>
 <body>
 <section class="vbox">
@@ -21,7 +22,7 @@
             <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav">
                 <i class="fa fa-bars"></i>
             </a>
-            <a href="#" class="navbar-brand" data-toggle="fullscreen">
+            <a href="{{ url('/admin/index') }}" class="navbar-brand">
                 <img src="{{ asset('assets/images/logo.png') }}" class="m-r-sm">{{ config('app.name', 'Poems') }} 管理平台
             </a>
             <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".nav-user">
@@ -130,7 +131,7 @@
                 </section>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="{{ url('/admin/index') }}" class="dropdown-toggle" data-toggle="dropdown">
                     <span class="thumb-sm avatar pull-left">
                         <img src="{{ asset('assets/images/avatar.jpg') }}">
                     </span>
@@ -180,7 +181,7 @@
                             <nav class="nav-primary hidden-xs">
                                 <ul class="nav">
                                     <li class="active">
-                                        <a href="index.html" class="active">
+                                        <a href="{{ url('/admin/index') }}" class="active">
                                             <i class="fa fa-dashboard icon">
                                                 <b class="bg-danger"></b>
                                             </i>
@@ -517,13 +518,14 @@
     </section>
 </section>
 <script src="{{ asset('assets/js/app.v2.js') }}"></script> <!-- Bootstrap --> <!-- App -->
-<script src="{{ asset('assets/js/charts/easypiechart/jquery.easy-pie-chart.js') }}" cache="false"></script>
-<script src="{{ asset('assets/js/charts/sparkline/jquery.sparkline.min.js') }}" cache="false"></script>
-<script src="{{ asset('assets/js/charts/flot/jquery.flot.min.js') }}" cache="false"></script>
-<script src="{{ asset('assets/js/charts/flot/jquery.flot.tooltip.min.js') }}" cache="false"></script>
-<script src="{{ asset('assets/js/charts/flot/jquery.flot.resize.js') }}" cache="false"></script>
-<script src="{{ asset('assets/js/charts/flot/jquery.flot.grow.js') }}" cache="false"></script>
-<script src="{{ asset('assets/js/charts/flot/demo.js') }}" cache="false"></script>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    </script>
+@stack('script')
 {{--  <script src="js/calendar/bootstrap_calendar.js" cache="false"></script>
 <script src="js/calendar/demo.js" cache="false"></script> 
 <script src="js/sortable/jquery.sortable.js" cache="false"></script>  --}}
