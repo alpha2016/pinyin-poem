@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Shanghai',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +176,8 @@ return [
         Overtrue\LaravelPinyin\ServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laravel\Dusk\DuskServiceProvider::class,
+
+        App\Providers\ResponseMacrosProvider::class,
     ],
 
     /*

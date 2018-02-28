@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', '首页')
+@section('title', '管理平台')
 
 @section('content')
     <section class="vbox">
