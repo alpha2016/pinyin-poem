@@ -9,6 +9,8 @@
                 <li><a href="{{ url('/admin/index') }}"><i class="fa fa-home"></i> Home</a></li>
                 <li><a href="#">歌谣</a></li>
                 <li class="active">歌谣列表</li>
+                &nbsp;
+            <a href="{{ url('/admin/poem/create') }}" target="_blank"><span class="glyphicon glyphicon-plus text-success" aria-hidden="true"></span></a>
             </ul>
             <section class="panel panel-default">
                 <div class="table-responsive">

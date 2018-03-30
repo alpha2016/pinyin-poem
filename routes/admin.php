@@ -23,4 +23,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     
     // 诗歌相关
     Route::get('poems', 'Admin\Poem\PoemController@index');
+    Route::get('poem/create', 'Admin\Poem\PoemController@showCreate');
+    Route::post('poem', 'Admin\Poem\PoemController@create');
 });

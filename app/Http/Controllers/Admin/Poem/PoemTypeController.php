@@ -64,6 +64,6 @@ class PoemTypeController extends Controller
     {
         PoemType::destroy($id);
 
-        return response()->success('成功');
+        return response()->success('删除成功');
     }
 }
