@@ -54,7 +54,7 @@ class PoemController extends Controller
 
 
     /**
-     * 传来诗，然后处理返回规整好的内容
+     * 传来诗，然后处理返回规整好的内容，最后一个字符必须是 。 
      */
     public function formatContent($poem)
     {

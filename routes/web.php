@@ -47,3 +47,6 @@ Route::post('test', 'Admin\IndexController@test');
 Route::get('bug', function () {
     throw new Exception('Division by zero.');
 });
+
+// 上传接口，参数file type
+Route::post('upload', 'UploadController@index');

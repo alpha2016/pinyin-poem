@@ -60,7 +60,7 @@ class PoemController extends Controller
         if ($result) {
             $ai = new AipSpeech();
             $ai->getVoice($request->input('content'), $request->input('title') . '-female');
-            return redirect('/admin/poems');;
+            return redirect('/admin/poems');
         } else {
             return response()->error('添加失败，请重试');
         }

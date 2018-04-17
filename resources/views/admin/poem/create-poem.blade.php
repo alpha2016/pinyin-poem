@@ -2,6 +2,9 @@
 
 @section('title', '添加诗歌')
 
+@push('style')
+    <link href="{{ asset('assets/css/fileinput.min.css') }}" media="all" rel="stylesheet" type="text/css" />
+@endpush
 @section('content')
 <section class="vbox">
     <section class="scrollable padder">
@@ -14,7 +17,8 @@
         <div class="row">
             <div class="col-sm-6">
                 <form data-validate="parsley" method="post" action="{{ url('/admin/poem') }}">
-                    <input name="_token" type="hidden" value="{{ csrf_token() }}" />
+                    <input name="_token" type="hidden" value="{{ csrf_token() }}" />\
+                    <input id="picture" name="picture" type="hidden" value="">
                     <section class="panel panel-default">
                         <header class="panel-heading"> <span class="h4">添加诗歌</span> </header>
                         <div class="panel-body">
@@ -38,7 +42,7 @@
                             </div>
                             <div class="form-group">
                                 <label>封面</label>
-                                <input type="text" class="form-control" max="20" name="picture" data-required="true">
+                                <input id="cover" name="file" type="file" value="" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>内容</label>
@@ -59,3 +63,28 @@
     </section>
 </section>
 @endsection
+
+@push('script')
+    <script src="{{ asset('assets/js/file-input/fileinput.min.js') }}"></script>
+    <script>
+        $(document).on('ready', function() {
+            $("#cover").fileinput({
+                showCaption: false,
+                dropZoneEnabled: false,
+                mainClass: "btn btn-primary",
+                showRemove: false,    // 此三个控制大的按钮，而非图片上的按钮
+                showCancel: false,
+                showUpload: false,
+                allowedPreviewTypes: ['image'],
+                allowedFileExtensions:  ['jpg', 'png', 'gif', 'jpeg', 'bmp', 'tiff'],
+                maxFileSize : 5000,
+                uploadUrl: "/upload",
+                uploadExtraData: {type: 'picture'}
+            }).on("fileuploaded", function(event, data) {
+                if(data.response) {
+                    $('#picture').val('/storage/' + data.response.data.relative_url);
+                }
+            });
+        });
+    </script>
+@endpush
