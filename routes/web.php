@@ -50,3 +50,6 @@ Route::get('bug', function () {
 
 // 上传接口，参数file type
 Route::post('upload', 'UploadController@index');
+
+// 图片操作
+Route::get('/image', 'ImageController@index');

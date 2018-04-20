@@ -178,6 +178,12 @@ return [
         Laravel\Dusk\DuskServiceProvider::class,
 
         App\Providers\ResponseMacrosProvider::class,
+
+        // image
+        Intervention\Image\ImageServiceProvider::class,
+
+        // qrcode
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
     ],
 
     /*
@@ -228,6 +234,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Pinyin' => Overtrue\LaravelPinyin\Facades\Pinyin::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
     ],
 
 ];
