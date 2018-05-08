@@ -25,4 +25,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('poems', 'Admin\Poem\PoemController@index');
     Route::get('poem/create', 'Admin\Poem\PoemController@showCreate');
     Route::post('poem', 'Admin\Poem\PoemController@create');
+    Route::get('poem/{id}', 'Admin\Poem\PoemController@showModify');
+    Route::put('poem/{id}', 'Admin\Poem\PoemController@modify');
 });

@@ -42,6 +42,9 @@
                                         <td>{{ $poem->author }}</td>
                                         <td>{{ str_limit($poem->content, 22) }}</td>
                                         <td>
+                                            <a href="{{ url('/admin/poem/' . $poem->id) }}">
+                                                <i class="fa fa-pencil-square-o text-success"></i>
+                                            </a>
                                             <a href="#" class="active" data-toggle="class">
                                                 <i class="fa fa-check text-success text-active"></i>
                                                 <i class="fa fa-times text-danger text"></i>

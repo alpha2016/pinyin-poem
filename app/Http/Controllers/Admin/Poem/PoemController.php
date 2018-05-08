@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Services\AipSpeech;
 use \App\Models\PoemType;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PoemController extends Controller
 {
@@ -38,14 +39,7 @@ class PoemController extends Controller
      */
     public function create(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required|max:100',
-            'poem_type_id' => 'required|exists:poem_types,id',
-            'author' => 'required|max:20',
-            'content' => 'required|max:1000',
-            'description' => 'required|max:250',
-            'picture' => 'required|max:150'
-        ]);
+        $this->commonValidate($request);
 
         $poem = new Poem;
         $poem->poem_type_id = intval($request->input('poem_type_id'));
@@ -68,11 +62,57 @@ class PoemController extends Controller
 
 
     /**
+     * 展示编辑页面
+     */
+    public function showModify(Request $request, $id)
+    {
+        $types = PoemType::all();
+        $poem = Poem::findOrFail($id);
+        return view('admin.poem.modify-poem', compact('types', 'poem'));
+    }
+
+
+    /**
      * 编辑
      */
     public function modify(Request $request, $id)
     {
+        $this->commonValidate($request);
 
+        $poem = Poem::find($id);
+        $poem->poem_type_id = intval($request->input('poem_type_id'));
+        $poem->author = htmlspecialchars($request->input('author'));
+        $poem->title = htmlspecialchars($request->input('title'));
+        $poem->content = htmlspecialchars($request->input('content'));
+        $poem->description = htmlspecialchars($request->input('description'));
+        $poem->picture = htmlspecialchars($request->input('picture'));
+        $poem->admin_id = Auth::guard('admin')->user()->id;
+        $result = $poem->save();
+
+        if ($result) {
+            // todo 删除旧文件
+            $ai = new AipSpeech();
+            $ai->getVoice($request->input('content'), $request->input('title') . '-female');
+            return redirect('/admin/poems');
+        } else {
+            return response()->error('编辑失败，请重试');
+        }
+    }
+
+
+    /**
+     * 共同验证规则
+     */
+    private function commonValidate(Request $request)
+    {
+        return $this->validate($request, [
+            'title' => 'required|max:100',
+            'poem_type_id' => 'required|exists:poem_types,id',
+            'author' => 'required|max:20',
+            'content' => 'required|max:1000',
+            'description' => 'required|max:250',
+            'picture' => 'required|max:150'
+        ]);
     }
 
 

@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <form data-validate="parsley" method="post" action="{{ url('/admin/poem') }}">
-                    <input name="_token" type="hidden" value="{{ csrf_token() }}" />\
+                    <input name="_token" type="hidden" value="{{ csrf_token() }}" />
                     <input id="picture" name="picture" type="hidden" value="">
                     <section class="panel panel-default">
                         <header class="panel-heading"> <span class="h4">添加诗歌</span> </header>
