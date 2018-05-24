@@ -11,7 +11,13 @@
 |
 */
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
+// admin 相关登录
+Route::get('/login', 'Admin\Auth\LoginController@showLoginForm');
+Route::post('/login', 'Admin\Auth\LoginController@login');
+Route::post('/logout', 'Admin\Auth\LoginController@logout');
+
+
+Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('index', 'Admin\IndexController@index');
 
     // 类型相关
@@ -27,4 +33,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::post('poem', 'Admin\Poem\PoemController@create');
     Route::get('poem/{id}', 'Admin\Poem\PoemController@showModify');
     Route::put('poem/{id}', 'Admin\Poem\PoemController@modify');
+
+    // 学习日志相关
+    Route::get('/poem/records', 'Admin\Poem\RecordController@index'); // 404 ???
 });

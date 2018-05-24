@@ -1,31 +1,46 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\LearnRecord;
 use Illuminate\Http\Request;
 use App\Models\Poem;
 use Pinyin;
 use App\Services\AipSpeech;
 use App\Mail\Poem as PoemMail;
 use Illuminate\Support\Facades\Auth;
+use function Sodium\increment;
 
 class PoemController extends Controller
 {
     /**
-     * index 
+     * index todo 设计首页
     */
     public function index(Request $request)
     {
-        // todo 
+        $userId = Auth::check() ? Auth::user()->id : 0;
+
+        $lastLearned = null;
+        if ($userId) {
+            $lastLearned = LearnRecord::where('user_id')
+                ->with('poem')
+                ->orderBy('updated_at', 'desc')
+                ->first();
+        }
+
+        return view('index', compact('lastLearned'));
     }
 
 
     /**
-     * show
+     * show  todo 前端页面加上定时器js
      */
     public function show(Request $request, $id)
     {
         $poem = Poem::find($id);
         $contents = $this->formatContent($poem);
+
+        // 访问时记录一次
+       $this->record($request, $id);
 
         return view('poem', compact('poem', 'contents'));
     }
@@ -96,5 +111,27 @@ class PoemController extends Controller
         }
 
         return $results;
+    }
+
+    /**
+     * record 记录一下
+     */
+    public function record(Request $request, $id)
+    {
+        $userId = Auth::check() ? Auth::user()->id : 0;
+        $record = ['user_id' => $userId, 'poem_id' => $id];
+        $oldRecord = LearnRecord::where($record)->first();
+        $ip = ip2long($request->ip());
+
+        if ($oldRecord && $userId != 0) {
+            $oldRecord->times = $oldRecord->times + 1;
+            $oldRecord->updated_ip = $ip;
+            $oldRecord->save();
+        } else {
+
+            LearnRecord::create(array_merge($record, ['created_ip' => $ip, 'updated_ip' => $ip]));
+        }
+
+        return response()->success('记录成功');
     }
 }

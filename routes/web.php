@@ -29,18 +29,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// admin 相关的登录
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('/login', 'Admin\Auth\LoginController@showLoginForm');
-    Route::post('/login', 'Admin\Auth\LoginController@login');
-    Route::post('/logout', 'Admin\Auth\LoginController@logout');
-});
 
 // todo 添加《诗经》，分章节展示
-Route::get('/poem/{id}', 'PoemController@show');
-Route::get('/poem/{id}/speech', 'PoemController@speech');
+Route::get('/poem/{id}', 'PoemController@show');             // page 诗歌页面
+Route::get('/poem/{id}/speech', 'PoemController@speech');    // api test
+Route::get('/poem/{id}/record', 'PoemController@record');    // api 记录学习诗歌
 Route::group(['middleware' => ['auth', 'throttle:60,1']], function () { 
-    Route::get('/poem/{id}/mail', 'PoemController@mail');
+    Route::get('/poem/{id}/mail', 'PoemController@mail');    // api 发送邮件
 });
 
 Route::post('test', 'Admin\IndexController@test');

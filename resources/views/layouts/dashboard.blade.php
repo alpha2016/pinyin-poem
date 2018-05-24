@@ -220,9 +220,9 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="table-datagrid.html">
+                                                        <a href="{{ url('/admin/poem/records') }}">
                                                             <i class="fa fa-angle-right"></i>
-                                                            <span>####</span>
+                                                            <span>学习日志</span>
                                                         </a>
                                                     </li>
                                                 </ul>
