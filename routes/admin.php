@@ -35,5 +35,5 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::put('poem/{id}', 'Admin\Poem\PoemController@modify');
 
     // 学习日志相关
-    Route::get('/poem/records', 'Admin\Poem\RecordController@index'); // 404 ???
+    Route::get('/learn/records', 'Admin\Poem\RecordController@index');
 });

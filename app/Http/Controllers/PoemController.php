@@ -119,16 +119,16 @@ class PoemController extends Controller
     public function record(Request $request, $id)
     {
         $userId = Auth::check() ? Auth::user()->id : 0;
-        $record = ['user_id' => $userId, 'poem_id' => $id];
-        $oldRecord = LearnRecord::where($record)->first();
         $ip = ip2long($request->ip());
+        $record = ['user_id' => $userId, 'poem_id' => $id, 'created_ip' => $ip];
+        $oldRecord = LearnRecord::where($record)->orderby('id', 'desc')->first();
 
-        if ($oldRecord && $userId != 0) {
+        if ($oldRecord) {
             $oldRecord->times = $oldRecord->times + 1;
+            $oldRecord->duration = $oldRecord->duration + 10;
             $oldRecord->updated_ip = $ip;
             $oldRecord->save();
         } else {
-
             LearnRecord::create(array_merge($record, ['created_ip' => $ip, 'updated_ip' => $ip]));
         }
 

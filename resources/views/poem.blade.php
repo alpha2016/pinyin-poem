@@ -65,10 +65,20 @@
 
 @push('script')
 <script>
+	// send this page to mail
 	function sendMail()
 	{
 		let url = document.getElementById('send').getAttribute('data-href');
 		window.location.href = url;
 	}
+
+	// todo 定时器发送数据
+    setInterval("record()", 10000);
+    function record()
+    {
+        $.ajax({url: '/poem/' + "{{ $poem->id }}" + '/record', async:false});
+    }
+
+	// todo prev and next poem function
 </script>
 @endpush

@@ -80,6 +80,7 @@
     <!-- Scripts -->
     @stack('script')
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
     
 </body>
 </html>
