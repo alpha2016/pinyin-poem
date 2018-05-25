@@ -13,12 +13,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/bootstrap-3.3.7.min.css') }}" rel="stylesheet">
 
     @stack('style')
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top navbar-expand-sm">
             <div class="container">
                 <div class="navbar-header">
 
@@ -81,6 +82,9 @@
     @stack('script')
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
-    
+    <script src="{{ asset('assets/js/bootstrap-3.3.7.min.js') }}"></script>
+    <script>
+        $('.dropdown-toggle').dropdown()
+    </script>
 </body>
 </html>
