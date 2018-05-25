@@ -113,6 +113,7 @@ class PoemController extends Controller
         return $results;
     }
 
+
     /**
      * record 记录一下
      */
@@ -133,5 +134,26 @@ class PoemController extends Controller
         }
 
         return response()->success('记录成功');
+    }
+
+
+    /**
+     * 寻找 prev/next 诗歌
+     */
+    public function seek(Request $request, $id)
+    {
+        $this->validate($request, [
+            'seek' => 'required|in:prev,next'
+        ]);
+
+        $seek = $request->input('seek');
+        $type = Poem::where('id', $id)->value('poem_type_id');
+
+        $sign = ($seek === 'next') ? '>' : '<';
+        $order = ($seek === 'next') ? 'asc' : 'desc';
+        $poem = Poem::where('poem_type_id', $type)->where('id', $sign, $id)->orderBy('id', $order)->first();
+        $id = $poem ? $poem->id : '';
+
+        return response()->success(['id' => $id]);
     }
 }

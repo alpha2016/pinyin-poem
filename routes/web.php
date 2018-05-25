@@ -34,6 +34,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/poem/{id}', 'PoemController@show');             // page 诗歌页面
 Route::get('/poem/{id}/speech', 'PoemController@speech');    // api test
 Route::get('/poem/{id}/record', 'PoemController@record');    // api 记录学习诗歌
+Route::get('/poem/{id}/seek', 'PoemController@seek');    // api 记录学习诗歌
 Route::group(['middleware' => ['auth', 'throttle:60,1']], function () { 
     Route::get('/poem/{id}/mail', 'PoemController@mail');    // api 发送邮件
 });

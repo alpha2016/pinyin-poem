@@ -53,7 +53,15 @@
 			<blockquote>
 				<small>{{ $poem->description }}</small>
 			</blockquote>
-			
+
+		<ul class="pager">
+			<li class="previous" onclick="seek('prev')"><a href="javascript:;">« Prev</a></li>
+			<li class="next" onclick="seek('next')"><a href="javascript:;">Next »</a></li>
+		</ul>
+		<div class="alert-message">
+
+		</div>
+
 		<hr>
 		<h5>更新于：{{ $poem->created_at }} 
 			<a id="send" data-href="{{ url('/poem/' . $poem->id . '/mail') }}" onclick="sendMail()">
@@ -65,20 +73,42 @@
 
 @push('script')
 <script>
-	// send this page to mail
+	// send this page to user mail
 	function sendMail()
 	{
 		let url = document.getElementById('send').getAttribute('data-href');
 		window.location.href = url;
 	}
 
-	// todo 定时器发送数据
-    setInterval("record()", 10000);
+	// 10 秒发一次请求
+    // setInterval("record()", 10000);
     function record()
     {
         $.ajax({url: '/poem/' + "{{ $poem->id }}" + '/record', async:false});
     }
 
-	// todo prev and next poem function
+	// prev and next poem function
+	function seek(direction)
+	{
+        $.ajax({
+			url: '/poem/' + "{{ $poem->id }}" + '/seek',
+			async:false,
+			data:{'seek': direction},
+			method: 'GET',
+			success: function (data) {
+			    if (data.data.id) {
+			        window.location.href = '/poem/' + data.data.id;
+				} else {
+                    var alert_message = direction === 'next' ? '最后一篇' : '第一篇';
+                    var dom = "<div class='alert alert-success'>已经是<span id='alert-message'>"
+						+ alert_message + "</span> 了，非常感谢您的学习！</div>";
+                    $('.alert-message').html(dom);
+				}
+			},
+			error: function (error) {
+                console.log(error);
+			}
+        });
+	}
 </script>
 @endpush
