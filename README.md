@@ -30,3 +30,9 @@ domain/poem/{id}   访问具体的诗歌页面
 jquery完成诗歌类型的操作，考虑过vue2.x+vue-strap+vue paginate的一个分页，后面可以尝试一下这个方式，感觉有点乱，没找到优化方式
 工作中整体后台框架用过angular，vue的ant design和element ui,这两种的样式不是很喜欢，代码会写，未采用此框架，node_modules和他的包管理方式，
 太臃肿了，这个是最大的坑点
+
+-- 2018.12.19
+追加一个数据库备份定时任务，自行在服务器加上定时任务
+```
+* * * * * /path/to/php /path/to/artisan schedule:run
+```
