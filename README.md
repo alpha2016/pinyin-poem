@@ -36,3 +36,7 @@ jquery完成诗歌类型的操作，考虑过vue2.x+vue-strap+vue paginate的一
 ```
 * * * * * /path/to/php /path/to/artisan schedule:run
 ```
+
+-- 2018-12-29
+完善共用的查询和删除方法，并增加对应的 model 和数据库数据库中有 weathers 和 weather_types 表，为北京2018-06-01 -- 2018-12-31 的天气信息，
+可以随意拿去用

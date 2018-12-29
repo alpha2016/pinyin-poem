@@ -53,3 +53,4 @@ Route::get('/image', 'ImageController@index');
 
 // 公用的 curd 操作
 Route::get('/common/find', 'CurdController@find');
+Route::get('/common/delete', 'CurdController@delete');    // warning: 慎用删除方法用get请求
