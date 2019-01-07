@@ -24,6 +24,7 @@ Route::get('/demo', 'ReadController@demo');
 Route::get('/rand', 'TestController@rand');                // random_int 函数生成位图
 Route::get('/reverse', 'TestController@reverse');          // 反转字符串，同位置的字母保持大小写一致
 Route::get('/word-check', 'TestController@wordCheck');     // 敏感词过滤
+Route::get('/connect', 'TestController@connect');          // 测试链接另一个数据库
 
 Auth::routes();
 

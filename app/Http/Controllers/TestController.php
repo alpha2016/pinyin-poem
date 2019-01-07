@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
@@ -39,6 +40,7 @@ class TestController extends Controller
         var_dump(reverse('Boston Celtics!A'));
     }
 
+
     /**
      * 敏感词过滤
      */
@@ -47,5 +49,15 @@ class TestController extends Controller
         $content = '他是个傻@B bitchSADF啊，傻xx逼! é-f-é-u-é-c-é-k-é?';
 
         return sensitiveWordFilter($content);
+    }
+
+
+    /**
+     * 测试链接第二个数据库
+     */
+    public function connect(Request $request)
+    {
+        $types = DB::connection('mysql2')->select("SELECT * FROM weather_types ORDER BY id ASC LIMIT 10");
+        return $types;
     }
 }
