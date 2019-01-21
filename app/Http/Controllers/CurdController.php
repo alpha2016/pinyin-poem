@@ -61,4 +61,6 @@ class CurdController extends Controller
         $modelWithPath = 'App\Models\\' . $model;
         return new $modelWithPath();
     }
+
+    /** 公用的创建和删除方法不需要抽离了，因为涉及到数据合法性验证，具体逻辑具体使用，laravel ORM 封装的很好 */
 }

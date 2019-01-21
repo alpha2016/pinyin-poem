@@ -25,6 +25,8 @@ Route::get('/rand', 'TestController@rand');                // random_int 函数�
 Route::get('/reverse', 'TestController@reverse');          // 反转字符串，同位置的字母保持大小写一致
 Route::get('/word-check', 'TestController@wordCheck');     // 敏感词过滤
 Route::get('/connect', 'TestController@connect');          // 测试链接另一个数据库
+Route::get('/list', 'TestController@testGetList');         // 新的无限级方法
+
 
 Auth::routes();
 

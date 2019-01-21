@@ -60,4 +60,119 @@ class TestController extends Controller
         $types = DB::connection('mysql2')->select("SELECT * FROM weather_types ORDER BY id ASC LIMIT 10");
         return $types;
     }
+
+
+    /**
+     * php的一个高性能无限级遍历
+     */
+    public function testGetList(Request $request)
+    {
+        $start = microtime(true);
+        $data = array(
+            1 => array(
+                'id' => 1,
+                'name' => '中华人民共和国',
+                'parent_id' => 0,
+                'level' => 'country',
+            ),
+            2 => array(
+                'id' => 2,
+                'name' => '北京市',
+                'parent_id' => 1,
+                'level' => 'province',
+            ),
+            20 => array(
+                'id' => 20,
+                'name' => '天津市',
+                'parent_id' => 1,
+                'level' => 'province',
+            ),
+            38 => array(
+                'id' => 38,
+                'name' => '河北省',
+                'parent_id' => 1,
+                'level' => 'province',
+            ),
+            218 => array(
+                'id' => 218,
+                'name' => '山西省',
+                'parent_id' => 1,
+                'level' => 'province',
+            ),
+            349 => array(
+                'id' => 349,
+                'name' => '内蒙古自治区',
+                'parent_id' => 1,
+                'level' => 'province',
+            ),
+            465 => array(
+                'id' => 465,
+                'name' => '辽宁省',
+                'parent_id' => 1,
+                'level' => 'province',
+            ),
+            568 => array(
+                'id' => 568,
+                'name' => '保定市',
+                'parent_id' => 38,
+                'level' => 'city',
+            ),
+            569 => array(
+                'id' => 569,
+                'name' => '衡水市',
+                'parent_id' => 38,
+                'level' => 'city',
+            ),
+            1256 => array(
+                'id' => 1256,
+                'name' => '唐县',
+                'parent_id' => 568,
+                'level' => 'county',
+            ),
+            1257 => array(
+                'id' => 1257,
+                'name' => '望都县',
+                'parent_id' => 568,
+                'level' => 'county',
+            ),
+            9872 => array(
+                'id' => 9872,
+                'name' => '仁厚镇乡',
+                'parent_id' => 1256,
+                'level' => 'village',
+            ),
+            10052 => array(
+                'id' => 10052,
+                'name' => '下屯村',
+                'parent_id' => 9872,
+                'level' => 'hamlet',
+            ),
+        );
+
+        $format = $this->getList($data);
+        $end = microtime(true);
+        // echo '执行耗时' . number_format($end - $start, 10, '.', '') . '秒<br>';
+        // echo 'Now memory_get_usage: ' . memory_get_usage() . '<br />';
+        return $format;
+    }
+
+
+    /**
+     * 无限级遍历
+     * 原文内容：https://wi1dcard.cn/wtf/php-fastest-create-tree-from-list/
+     */
+    private function getList($catList)
+    {
+        $treeData = [];
+        foreach ($catList as &$item) {
+            $parent_id = $item['parent_id'];
+            if (isset($catList[$parent_id]) && !empty($catList[$parent_id])) {
+                $catList[$parent_id]['list'][] = &$catList[$item['id']];
+            } else {
+                $treeData[] = &$catList[$item['id']];
+            }
+        }
+        unset($item);
+        return $treeData[0]['list']; // 根节点只有中华人民共和国，所以直接返回中国的所有子节点
+    }
 }
