@@ -199,7 +199,7 @@ if (!function_exists('quickLog')) {
     function quickLog($content)
     {
 
-        $maxsize = 10240;  // 测试限制为1m大小
+        $maxsize = 1024 * 1024;  // 测试限制为1m大小
         $prefix = storage_path() . '/logs/log_' . date('YmdH');
         $files = glob($prefix . "*.log", GLOB_NOSORT);
 

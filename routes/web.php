@@ -58,7 +58,7 @@ Route::get('/image', 'ImageController@index');
 Route::get('/common/find', 'CurdController@find');
 Route::get('/common/delete', 'CurdController@delete');    // warning: 慎用删除方法用get请求
 Route::get('/log', function () {
-    for ($i = 0; $i < 100; $i++) {
+    for ($i = 0; $i < 100000; $i++) {
         quickLog('哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈' . mt_rand(1, 10000));
     }
 });
