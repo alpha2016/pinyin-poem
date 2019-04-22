@@ -57,3 +57,8 @@ Route::get('/image', 'ImageController@index');
 // 公用的 curd 操作
 Route::get('/common/find', 'CurdController@find');
 Route::get('/common/delete', 'CurdController@delete');    // warning: 慎用删除方法用get请求
+Route::get('/log', function () {
+    for ($i = 0; $i < 100; $i++) {
+        quickLog('哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈' . mt_rand(1, 10000));
+    }
+});

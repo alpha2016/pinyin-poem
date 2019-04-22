@@ -192,3 +192,30 @@ if (!function_exists('updateBatch')) {
         }
     }
 }
+
+
+if (!function_exists('quickLog')) {
+    
+    function quickLog($content)
+    {
+
+        $maxsize = 10240;  // 测试限制为1m大小
+        $prefix = storage_path() . '/logs/log_' . date('YmdH');
+        $files = glob($prefix . "*.log", GLOB_NOSORT);
+
+        if (!empty($files)) {
+            $filename = $files[count($files) - 1];
+            echo filesize($filename). PHP_EOL;
+            if ($maxsize - filesize($filename) < strlen($content)) {
+                $filename = $prefix . '_' . count($files) . '.log';
+                file_put_contents($filename, '');
+            }
+        } else {
+            $filename = $prefix . '.log';
+            file_put_contents($filename, '');
+        }
+
+        file_put_contents($filename, $content . PHP_EOL, FILE_APPEND);
+        clearstatcache();
+    }
+}
