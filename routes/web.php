@@ -52,6 +52,7 @@ Route::post('upload', 'UploadController@index');
 
 // 图片操作
 Route::get('/image', 'ImageController@index');
+Route::get('/image/circle', 'ImageController@circle');
 
 
 // 公用的 curd 操作
